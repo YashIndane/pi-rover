@@ -1,0 +1,45 @@
+#cli{
+	position: absolute;
+	top: 7px;
+	left: 528px;
+	width: 455px;
+	height: 40px;
+	font-family: "Tahoma";
+	border-color: #008725;
+	outline: none;
+	border-style: solid;
+}
+
+#out{
+	position: absolute;
+	top: 55px;
+	left: 528px;
+	font-family: "Tahoma";
+}
+
+#sub{
+	position: absolute;
+	top: 8px;
+	left: 925px;
+}
+
+#live{
+	position: absolute;
+	height:40px;
+	width: 90px;
+	left: 422px;
+	top: 8px;
+}
+
+#stream{
+	position: absolute;
+	top: 6px;
+}
+
+#snap{
+	position: absolute;
+	top: 358px;
+	left: 8px;
+	height: 24px;
+	width: 40px;
+}
