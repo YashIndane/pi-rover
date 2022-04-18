@@ -1,17 +1,19 @@
 <html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}" />
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	</head>
-	<body>
+        <head>
+                <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}" />
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        </head>
+        <body>
 		<img id="stream" src="http://<IP>:5500/stream" />
                 <input type="text" id="cli" />
-		<button id="sub" class="btn btn-success" onclick="run_command()">RUN
-	        </button>
-		<img id="live" src="{{ url_for('static', filename='live_now.gif')}}" />
-		<pre><p id="out"></p></pre>
-		<button id="snap" class="btn btn-light" onclick="snap()"></button>
-		<script src="{{ url_for('static', filename='home.js') }}"></script>
-	</body> 	
+                <button id="sub" class="btn btn-success" onclick="run_command()">RUN
+                </button>
+                <img id="live" src="{{ url_for('static', filename='live_now.gif')}}" />
+                <pre><p id="out"></p></pre>
+                <button id="snap" class="btn btn-light" onclick="snap()"></button>
+                <input type="checkbox" id="ch" onclick="detection()" />
+                <p id="hd">Human Detection</p>
+                <script src="{{ url_for('static', filename='home.js') }}"></script>
+        </body>
 </html>

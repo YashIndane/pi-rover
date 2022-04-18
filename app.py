@@ -24,6 +24,36 @@ cap = cv2.VideoCapture(0)
 #Counter for saving snaps
 i = 0
 
+#Flag to start pedestrian detection
+detection_enable = False
+
+#Initializing the HOG person detector
+hog = cv2.HOGDescriptor()
+hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
+
+
+#Changing value of detection flag
+@app.route("/detection", methods=["GET"])
+def enable_detection():
+    global detection_enable
+    if request.args.get("value") == "true":
+        detection_enable = True
+    else:
+        detection_enable = False
+    return "0"
+
+
+#Detects pedestrians in frame
+def detect_pedestrian(frame):
+    #Detecting all the regions in the Image that has a pedestrians inside it
+    (regions, _) = hog.detectMultiScale(frame, winStride=(4, 4), padding=(8, 8), scale=1.0)
+
+    #Drawing the regions in the Image
+    for (x, y, w, h) in regions:
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (205, 50, 153), 2)
+
+    return frame
+
 
 #Generating frames from stream
 def gen():
@@ -39,6 +69,8 @@ def gen():
           height = int(frame.shape[0] * scale_percent/100)
           dim = (width, height)
           frame = cv2.resize(frame, dim, interpolation=cv2.INTER_AREA)
+          if detection_enable:
+              frame = detect_pedestrian(frame)
           FPS = "FPS " + str(int(1/(initial_timestamp-prev_timestamp)))
           prev_timestamp = initial_timestamp
           cv2.putText(frame, FPS, (7, 36), cv2.FONT_HERSHEY_SIMPLEX, 1, (100,255,0), 2,  cv2.LINE_AA)
@@ -47,8 +79,8 @@ def gen():
           frame = png.tobytes()
           yield(b'--frame\r\n'
                b'Content-Type: image/png\r\n\r\n' + frame + b'\r\n\r\n')
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
 
 #For taking snaps
@@ -77,6 +109,7 @@ def stream():
     return Response(gen(), mimetype="multipart/x-mixed-replace; boundary=frame")
 
 
+#Homepage
 @app.route("/rover")
 def rover():
     return render_template("home.html")
